@@ -16,7 +16,7 @@ namespace HYMiniProgram
 
         public Order SearchOrder(string orderNo)
         {
-            return null;
+            return new Order();
         }
 
         public bool InsertOrder(Order m)
