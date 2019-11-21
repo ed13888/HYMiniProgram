@@ -13,12 +13,6 @@ namespace HYMiniProgram.Controllers
     public class ValuesController : ApiController
     {
 
-        // GET api/values/5
-        public string Get()
-        {
-            return "value";
-        }
-
         [HttpGet]
         [Route("SearchOrder")]
         public JsonResult<Order> SearchOrder(string orderNo)
@@ -38,8 +32,9 @@ namespace HYMiniProgram.Controllers
 
         [HttpPost]
         [Route("UpdateOrderState")]
-        public JsonResult<bool> UpdateOrderState(string beginTime, string endTime, string state)
+        public JsonResult<bool> UpdateOrderState(dynamic obj)
         {
+            string beginTime = obj.BeginTime; string endTime = obj.EndTime; string state = obj.State;
             var result = OrderManager.Instance.UpdateOrderState(beginTime, endTime, state);
             return Json(result);
         }
