@@ -6,12 +6,17 @@ using System.Web;
 
 namespace HYMiniProgram
 {
-    public class OrderManager
+    public class Manager
     {
-        public static readonly OrderManager Instance = null;
-        static OrderManager()
+        public static readonly Manager Instance = null;
+        static Manager()
         {
-            Instance = new OrderManager();
+            Instance = new Manager();
+        }
+
+        public bool ValidateUserPrivilege(string wcid)
+        {
+            return true;
         }
 
         public Order SearchOrder(string orderNo)

@@ -16,6 +16,7 @@ namespace HYMiniProgram.Controllers
         [Route("ValidateUserPrivilege")]
         public JsonResult<bool> ValidateUserPrivilege(string wcid)
         {
+            var result = Manager.Instance.ValidateUserPrivilege(wcid);
             return Json(true);
         }
 
@@ -23,7 +24,7 @@ namespace HYMiniProgram.Controllers
         [Route("SearchOrder")]
         public JsonResult<Order> SearchOrder(string orderNo)
         {
-            var m = OrderManager.Instance.SearchOrder(orderNo);
+            var m = Manager.Instance.SearchOrder(orderNo);
             return Json(m);
         }
 
@@ -31,7 +32,7 @@ namespace HYMiniProgram.Controllers
         [Route("InsertOrder")]
         public JsonResult<bool> InsertOrder(Order m)
         {
-            var result = OrderManager.Instance.InsertOrder(m);
+            var result = Manager.Instance.InsertOrder(m);
             return Json(result);
         }
 
@@ -41,7 +42,7 @@ namespace HYMiniProgram.Controllers
         public JsonResult<bool> UpdateOrderState(dynamic obj)
         {
             string beginTime = obj.BeginTime; string endTime = obj.EndTime; string state = obj.State;
-            var result = OrderManager.Instance.UpdateOrderState(beginTime, endTime, state);
+            var result = Manager.Instance.UpdateOrderState(beginTime, endTime, state);
             return Json(result);
         }
 
