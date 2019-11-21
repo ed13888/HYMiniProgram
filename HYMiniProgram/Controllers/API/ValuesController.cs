@@ -28,6 +28,7 @@ namespace HYMiniProgram.Controllers
         }
 
         [HttpPost]
+        [Route("InsertOrder")]
         public JsonResult<bool> InsertOrder(Order m)
         {
             var result = OrderManager.Instance.InsertOrder(m);
@@ -36,6 +37,7 @@ namespace HYMiniProgram.Controllers
 
 
         [HttpPost]
+        [Route("UpdateOrderState")]
         public JsonResult<bool> UpdateOrderState(string beginTime, string endTime, string state)
         {
             var result = OrderManager.Instance.UpdateOrderState(beginTime, endTime, state);
