@@ -12,6 +12,12 @@ namespace HYMiniProgram.Controllers
     [RoutePrefix("Values")]
     public class ValuesController : ApiController
     {
+        [HttpGet]
+        [Route("ValidateUserPrivilege")]
+        public JsonResult<bool> ValidateUserPrivilege(string wcid)
+        {
+            return Json(true);
+        }
 
         [HttpGet]
         [Route("SearchOrder")]
