@@ -15,22 +15,22 @@ namespace HYMiniProgram.Models
         /// <summary>
         /// 已收货
         /// 装柜
-        /// 发船
+        /// 出港
         /// 清关
         /// 到达
         /// </summary>
         public string State { get; set; }
 
-        public DateTime CreateTime { get; set; }
+        public string CreateTime { get; set; }
 
-        public DateTime SHTime { get; set; }
+        public string SHTime { get; set; }
 
-        public DateTime ZGTime { get; set; }
+        public string ZGTime { get; set; }
 
-        public DateTime FCTime { get; set; }
+        public string CGTime { get; set; }
 
-        public DateTime QGTime { get; set; }
+        public string QGTime { get; set; }
 
-        public DateTime DDTime { get; set; }
+        public string DDTime { get; set; }
     }
 }

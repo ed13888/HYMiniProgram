@@ -21,7 +21,15 @@ namespace HYMiniProgram
 
         public Order SearchOrder(string orderNo)
         {
-            return new Order();
+            return new Order()
+            {
+                OrderNo = "test001",
+                CreateTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm"),
+                SHTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm"),
+                ZGTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm"),
+                CGTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm"),
+                State = "QG",
+            };
         }
 
         public bool InsertOrder(Order m)
