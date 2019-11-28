@@ -14,15 +14,15 @@ namespace HYMiniProgram.Controllers
     {
         [HttpGet]
         [Route("ValidateUserPrivilege")]
-        public JsonResult<bool> ValidateUserPrivilege(string wcid)
+        public JsonResult<ReturnValue<string>> ValidateUserPrivilege(string wcid)
         {
             var result = Manager.Instance.ValidateUserPrivilege(wcid);
-            return Json(true);
+            return Json(result);
         }
 
         [HttpGet]
         [Route("SearchOrder")]
-        public JsonResult<Order> SearchOrder(string orderNo)
+        public JsonResult<ReturnValue<Order>> SearchOrder(string orderNo)
         {
             var m = Manager.Instance.SearchOrder(orderNo);
             return Json(m);
@@ -30,7 +30,7 @@ namespace HYMiniProgram.Controllers
 
         [HttpPost]
         [Route("InsertOrder")]
-        public JsonResult<bool> InsertOrder(Order m)
+        public JsonResult<ReturnValue<int>> InsertOrder(Order m)
         {
             var result = Manager.Instance.InsertOrder(m);
             return Json(result);
@@ -39,7 +39,7 @@ namespace HYMiniProgram.Controllers
 
         [HttpPost]
         [Route("UpdateOrderState")]
-        public JsonResult<bool> UpdateOrderState(dynamic obj)
+        public JsonResult<ReturnValue<int>> UpdateOrderState(dynamic obj)
         {
             string beginTime = obj.BeginTime; string endTime = obj.EndTime; string state = obj.State;
             var result = Manager.Instance.UpdateOrderState(beginTime, endTime, state);

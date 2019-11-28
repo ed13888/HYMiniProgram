@@ -211,3 +211,12 @@
 /.vs/HYMiniProgram/v15/Server/sqlite3/storage.ide
 /.vs/HYMiniProgram/v15/Server/sqlite3/storage.ide-shm
 /.vs/HYMiniProgram/v15/Server/sqlite3/storage.ide-wal
+/HYMiniProgram/bin/BouncyCastle.Crypto.dll
+/HYMiniProgram/bin/Dapper.dll
+/HYMiniProgram/bin/Dapper.xml
+/HYMiniProgram/bin/Google.Protobuf.dll
+/HYMiniProgram/bin/Google.Protobuf.xml
+/HYMiniProgram/bin/MySql.Data.dll
+/HYMiniProgram/bin/MySql.Data.xml
+/HYMiniProgram/bin/Renci.SshNet.dll
+/HYMiniProgram/bin/Renci.SshNet.xml

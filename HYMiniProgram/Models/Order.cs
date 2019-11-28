@@ -8,18 +8,19 @@ namespace HYMiniProgram.Models
     /// <summary>
     /// 订单
     /// </summary>
+    [Table("`Order`")]
     public class Order
     {
         public string OrderNo { get; set; }
 
         /// <summary>
-        /// 已收货
-        /// 装柜
-        /// 出港
-        /// 清关
-        /// 到达
+        /// 1:已收货
+        /// 2:装柜
+        /// 3:出港
+        /// 4:清关
+        /// 5:到达
         /// </summary>
-        public string State { get; set; }
+        public int State { get; set; }
 
         public string CreateTime { get; set; }
 

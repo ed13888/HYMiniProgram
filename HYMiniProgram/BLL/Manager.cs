@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 
 namespace HYMiniProgram
@@ -14,32 +15,81 @@ namespace HYMiniProgram
             Instance = new Manager();
         }
 
-        public bool ValidateUserPrivilege(string wcid)
+        public ReturnValue<string> ValidateUserPrivilege(string wcid)
         {
-            return true;
-        }
-
-        public Order SearchOrder(string orderNo)
-        {
-            return new Order()
+            try
             {
-                OrderNo = "test001",
-                CreateTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm"),
-                SHTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm"),
-                ZGTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm"),
-                CGTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm"),
-                State = "QG",
-            };
+                var m = SqlHelper.QuerySingle<string>(new { wcid = wcid }, "select wcid from userprivilege where wcid=@wcid");
+                return new ReturnValue<string>(!string.IsNullOrEmpty(m), m, "登录成功");
+            }
+            catch
+            {
+                return new ReturnValue<string>(false, null, "该账号未授权");
+            }
         }
 
-        public bool InsertOrder(Order m)
+        public ReturnValue<Order> SearchOrder(string orderNo)
         {
-            return true;
+            try
+            {
+                var m = SqlHelper.QuerySingle<Order>(new { OrderNo = orderNo }, "select * from `order` where orderno=@OrderNo");
+                return new ReturnValue<Order>(true, m, "操作失败");
+            }
+            catch
+            {
+                return new ReturnValue<Order>(false, null, "订单不存在");
+            }
         }
 
-        public bool UpdateOrderState(string beginTime, string endTime, string state)
+        public ReturnValue<int> InsertOrder(Order m)
         {
-            return true;
+            try
+            {
+                m = new Order
+                {
+                    OrderNo = Guid.NewGuid().ToString("N"),
+                    State = 1,
+                };
+                var sql = $"insert into `order` (orderno,state) values (@OrderNo,@State)";
+                var val = SqlHelper.Execute(sql.ToString(), m);
+                return new ReturnValue<int>(val > 0, val, "操作失败");
+            }
+            catch
+            {
+                return new ReturnValue<int>(false, 0, "操作失败");
+            }
+        }
+
+        public ReturnValue<int> UpdateOrderState(string beginTime, string endTime, string state)
+        {
+            try
+            {
+                var sql = new StringBuilder($"update `order` set state=@state");
+                switch (state)
+                {
+                    case "2":
+                        sql.Append($",ZGTime=@time");
+                        break;
+                    case "3":
+                        sql.Append($",CGTime=@time");
+                        break;
+                    case "4":
+                        sql.Append($",QGTime=@time");
+                        break;
+                    case "5":
+                        sql.Append($",DDTime=@time");
+                        break;
+                    default:
+                        break;
+                }
+                sql.Append($" where createtime>= @begintime and createtime <= @endtime ");
+                var val = SqlHelper.Execute(sql.ToString(), new { state = state, begintime = beginTime, endtime = endTime, time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") });
+                return new ReturnValue<int>(val > 0, val, "操作失败");
+            }
+            catch
+            {
+                return new ReturnValue<int>(false, 0, "操作失败");
+            }
         }
 
     }
