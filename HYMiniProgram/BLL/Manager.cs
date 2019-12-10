@@ -47,7 +47,7 @@ namespace HYMiniProgram
             {
                 m = new Order
                 {
-                    OrderNo = Guid.NewGuid().ToString("N"),
+                    OrderNo =m.OrderNo,
                     State = 1,
                 };
                 var sql = $"insert into `order` (orderno,state) values (@OrderNo,@State)";
