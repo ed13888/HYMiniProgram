@@ -1,4 +1,5 @@
 ﻿using HYMiniProgram.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,11 +15,27 @@ namespace HYMiniProgram.Controllers
     {
         [HttpGet]
         [Route("ValidateUserPrivilege")]
-        public JsonResult<ReturnValue<string>> ValidateUserPrivilege(string wcid)
+        public JsonResult<ReturnValue<string>> ValidateUserPrivilege(string code)
         {
-            var result = Manager.Instance.ValidateUserPrivilege(wcid);
-            return Json(result);
+            string appid = "wxda26ff1bff212af3", secret = "73fac3abf65ec86423961d00d8be9eb8";
+            var url = $"https://api.weixin.qq.com/sns/jscode2session?appid={appid}&secret={secret}&js_code={code}&grant_type=authorization_code";
+            var result = HttpHelper.HttpGet(url);
+            var d = JsonConvert.DeserializeAnonymousType(result, new
+            {
+                session_key = "",
+                openid = "",
+            });
+            var res = Manager.Instance.ValidateUserPrivilege(d.openid);
+            return Json(res);
         }
+
+        //[HttpGet]
+        //[Route("ValidateUserPrivilege")]
+        //public JsonResult<ReturnValue<string>> ValidateUserPrivilege(string wcid)
+        //{
+        //    var result = Manager.Instance.ValidateUserPrivilege(wcid);
+        //    return Json(result);
+        //}
 
         [HttpGet]
         [Route("SearchOrder")]
