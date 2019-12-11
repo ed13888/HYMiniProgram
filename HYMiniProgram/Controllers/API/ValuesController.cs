@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -17,7 +18,8 @@ namespace HYMiniProgram.Controllers
         [Route("ValidateUserPrivilege")]
         public JsonResult<ReturnValue<string>> ValidateUserPrivilege(string code)
         {
-            string appid = "wxda26ff1bff212af3", secret = "73fac3abf65ec86423961d00d8be9eb8";
+
+            string appid = ConfigurationManager.AppSettings["appid"], secret = ConfigurationManager.AppSettings["secret"];
             var url = $"https://api.weixin.qq.com/sns/jscode2session?appid={appid}&secret={secret}&js_code={code}&grant_type=authorization_code";
             var result = HttpHelper.HttpGet(url);
             var d = JsonConvert.DeserializeAnonymousType(result, new
@@ -26,6 +28,7 @@ namespace HYMiniProgram.Controllers
                 openid = "",
             });
             var res = Manager.Instance.ValidateUserPrivilege(d.openid);
+            LogManager.Info($"[验证权限]passed:{res.Passed},openid:{d.openid}");
             return Json(res);
         }
 
